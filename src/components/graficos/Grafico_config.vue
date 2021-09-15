@@ -1,40 +1,42 @@
 <template>
-  <div class="justify-content-center">
-    <b-card centered class="card">
-          <!-- Card Body-->
-          <div class="card-body">
-            <line-chart v-if="Ready" :chartData="data" :options="options"/>
+    <div class="tarjeta_header">
+          <div class="tarjeta_body">
+
+            <line-chart v-if="Ready"
+                        :chartData="data"
+                        :options="options"/>
+
             <div v-else>
               <b-spinner variant="primary" type="border"></b-spinner>
               <p>Consultando datos...</p>
             </div>
           </div>
-    </b-card>
-  </div>
+    </div>
 </template>
 
 <script>
 import LineChart from "./LineCharts.js";
 
 export default {
-  name: "dolar",
+  name: "Graficos_config",
   components: { LineChart },
+  props: ["chart_title", "label", "api", "backgroundColor", "borderColor"],
   data: () => {
     return {
-      //variable piloto arreglo completo
-      dolar: [],
+      /** variable piloto arreglo completo */
+      valores_all: [],
 
-      //separacion de los datos utilizados
-      dolar_valores: [],
-      dolar_fechas: [],
+      /** separacion de los datos a utilizar */
+      valores: [],
+      fechas: [],
 
-      //manejo de detalles
+      /** manejo de detalles */
       Ready: false,
 
-      //Data & config Chart
+      /** Data & config Chart (no tocar!)*/
       data: null,
       options: null,
-      Chart_title: "Valores del dolar 2021",
+
     };
   },
   methods: {
@@ -47,28 +49,28 @@ export default {
     this.Ready = false;
 
     //consulta de la info
-    const response = await this.axios.get("https://mindicador.cl/api/dolar/2021");
-      this.dolar = response.data.serie;
+    const response = await this.axios.get(this.api);
+      this.valores_all = response.data.serie;
 
       /*Destructuracion del arreglo */
-      for (let item of this.dolar) {
+      for (let item of this.valores_all) {
         const fecha = new Date(item.fecha).toLocaleDateString();
-        this.dolar_fechas.push(fecha);
-        this.dolar_valores.push(item.valor);
+        this.fechas.push(fecha);
+        this.valores.push(item.valor);
       }
-      this.dolar_fechas.reverse();
-      this.dolar_valores.reverse();
+      this.fechas.reverse();
+      this.valores.reverse();
 
       //datos del grafico
       this.data = {
-            labels: this.dolar_fechas,
+            labels: this.fechas,
             datasets: [{
-                label: "Dolar",
-                backgroundColor: "#C2DE9F",
-                borderColor:"#8DC149",
-                data: this.dolar_valores
+                label: this.label,
+                backgroundColor: this.backgroundColor,
+                borderColor: this.borderColor,
+                data: this.valores
                 }]
-                },
+                }
       this.options = {
             responsive: true,
             maintainAspectRatio: false,
@@ -81,7 +83,7 @@ export default {
             },
             title: {
                 display: true,
-                text: this.Chart_title,
+                text: this.chart_title,
                 fontSize: 30,
                 padding: 30,
                 fontColor: "12619c",
@@ -106,9 +108,9 @@ export default {
             bodySpacing: 10,
             mode: 'x',
           },
-        },
+        }
         //finalmente
-        this.Ready = true;
+      this.Ready = true;
   },
 };
 </script>
