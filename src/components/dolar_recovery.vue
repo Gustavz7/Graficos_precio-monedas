@@ -47,7 +47,7 @@ export default {
     this.Ready = false;
 
     //consulta de la info
-    const response = await this.axios.get("https://mindicador.cl/api/dolar/2021");
+    const response = await this.axios.get("https://mindicador.cl/api/dolar/2022");
       this.dolar = response.data.serie;
 
       /*Destructuracion del arreglo */
