@@ -2,12 +2,14 @@
   <div>
     <h1>Graficos de demostracion usando la libreria VueChart.js</h1>
     <Modulo_graficos />
-    <p>Datos proporcionados por
-      <a href="https://mindicador.cl/">mindicador.cl</a>
-    </p>
+
     <div class="dev">
       <p class="p-dev"><b>Guz</b>Dev</p>
     </div>
+    <p>
+      Datos proporcionados por
+      <a href="https://mindicador.cl/">mindicador.cl</a>
+    </p>
   </div>
 </template>
 <script>
@@ -29,8 +31,6 @@ export default {
   box-shadow: 10px 10px 10px 10px rgb(165, 165, 165);
 }
 
-.card-header {
-}
 
 .card-body {
   text-align: center;

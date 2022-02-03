@@ -49,13 +49,13 @@ export default {
       backgroundColor_euro: "#9fbbde",
       borderColor_euro: "#4963c1",
       api_euro: "https://mindicador.cl/api/euro/2022",
-      
+
       //bitcoin
       titulo_bit: "Valor del Bitcoin 2022",
       etiqueta_bit: "Bitcoin",
       backgroundColor_bit: "#F3A444",
       borderColor_bit: "#DD4744",
-      api_bit: "https://mindicador.cl/api/bitcoin/2022"
+      api_bit: "https://mindicador.cl/api/bitcoin/2022",
     };
   },
   methods: {},
